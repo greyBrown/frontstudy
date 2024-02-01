@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    입력란 만들기
+    1. 인라인 요소
+    2. 형식
+    <input type="종류">
+    3. 종류
+      1) text      : 일반 텍스트 (디폴트)
+      2) password  : 비밀번호
+      3) number    : 숫자
+      4) file      : 파일 첨부
+      5) radio     : 단일 선택
+      6) checkbox  : 다중 선택
+      7) button    : 버튼
+    4. 주요 속성
+         속성이름     속성값              의미
+     1)  type         text/password...    입력란의 종류를 의미함 
+     2)  name                             입력란의 이름을 의미함
+     3)  value                            입력란에 입력된 데이터를 의미함
+     4)  size         정수값              입력란의 크기
+     5) maxlength     정수값              입력란에 입력할 수 있는 최대 글자 수
+     6) placeholder                       안내 메시지
+     7) readonly      readonly            입력란에 입력된 내용을 수정할 수 없음
+     8) required      required            입력란의 입력이 필수임을 의미함
+     9) disabled      disabled            입력란을 사용 안 함
+  -->
+
+
+  <!--1. 일반 텍스트-->
+  <input type="text" name="name" value="고길동" readonly>
+  <br>
+  <input type="text" name="postcode" maxlength="5" placeholder="우편번호">
+  <br>
+  <input type="text" name="address" value="서울시 금천구 가산동" disabled>
+
+<!-- name은 보통 백단에서 인식하는 용도, value 는 변수처리할 때 많이 씀. disabled 는 백단에서 인식을 아예 못한다. 백단으로 보내지 않을 때 쓴다. if로 disabled를 줘서 가져올지 말지 정할 때 쓰기도 함-->
+
+  <hr>
+
+<!--2. 숫자 -->
+<input type="number" min="1" max="12">
+
+  <hr>
+
+<!--3. 파일 -->
+<form method="post" enctype="multipart/form-data"> 
+  <input type="file" name="profile">
+  <br>
+  <input type="file" name="profile" multiple="multiple"> 
+</form>
+<!--method="post" enctype="multipart/form-data" 이게 필수적인 속성! 안하면 데이터가 넘어가지도 않는다. 
+  multiple 속성을 주면 둘 이상의 파일을 첨부할 수 있다. 다중첨부기능. 파일크기제한 문제가 좀 있음...-->
+
+  <hr>
+
+<!--4. 단일선택-->
+<input type ="radio" name="gender" value="none" checked> 선택안함
+<input type="radio" name="gender" value="man">남자
+<input type="radio" name="gender" value="woman">여자
+<!-- name 이 같아야 한다!! 안그러면 하나로 인식이 안된다. 같은 name을 줘야한다는게 핵심! 
+  하지만 이 상태론 값(value)가 존재하지 않게됨(사용자가 변수를 입력해넣는게 아니니까)...gender 란 name인 있는데 value 가 없다. 그래서 radio마다 value를 만들어줘야함.
+checked 속성을 추가해줌으로써 null 값이 넘어오는 것을 방지함. radio는 한번 체크되면 체크를 해제할 수는 없으니까(스위치 같이... 바꿀순 있지만 해제는 불가능한 구조)-->
+
+  <hr>
+
+<!--5. 다중선택-->
+<!-- 1) 같은 name, 다른 value-->
+<input type="checkbox" name="hobbies" value="swim">수영
+<input type="checkbox" name="hobbies" value="travel">여행
+<!-- 2) 다른 name, value 없음(체크하면 value="on", 체크안하면 value="")-->
+<input type="checkbox" name="swim">수영
+<input type="checkbox" name="travel">여행
+
+
+</body>
+</html>
