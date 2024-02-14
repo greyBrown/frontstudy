@@ -83,8 +83,8 @@
           isAlive: true
         };
 
-        var msg='<div>';
-        for(var p in you){
+        var msg='<div>'; 
+        for(var p in you){                                 //property 의 p임 이것만 뽑으면 속성 만 쫙 나옴.
           msg +='<div>' + p + ': ' + you[p] + '</div>';
         }
         msg += '</div>';
@@ -95,7 +95,7 @@
 
   <script>
 
-    // 객체 속성도 동적 처리(추가, 삭제, 수정)
+    // 객체 속성 동적 처리(추가, 삭제, 수정)
 
     // 빈 객체 생성
     var car = {};

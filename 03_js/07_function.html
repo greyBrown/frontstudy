@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    /*
+      함수 작성 방법
+      1. 함수 선언(함수 정의)
+      2. 함수 표현식
+    */
+  </script>
+
+  <script>
+    /*
+     함수 선언(함수 정의)
+     1. 함수 이름을 직접 결정하는 방식이다.
+     2. 호이스팅된다.
+     3. 형식
+       1) 함수 선언
+         function 함수이름([매개변수]) {
+            함수본문
+            [return 반환값]
+         }
+       2) 함수 호출
+          함수이름([인자])
+    */
+   
+     //myFunc1();                          //호이스팅이 되기 때문에 이렇게 위치를 둬도 문제 없음. js는 아래 선언부를 먼저 읽는다. 변수선언, 함수선언 대표적인 호이스팅 대상.
+
+    function myFunc1() {
+      window.alert('myFunc1 실행');
+    }
+
+  </script>
+
+  <script>
+    
+    /*
+      함수 표현식
+      1. 익명 함수(이름 없는 함수)와 이름이 있는 함수를 변수에 저장하는 방식이다.
+      2. 호이스팅 되지 앟는다.
+      3. 형식
+       1) 익명 함수 표현식
+          var 함수이름 = function([매개변수]) {
+            함수본문
+            [return 반환값]
+         }
+       2) 함수 호출
+          함수이름([인자])
+      4. 이름이 있는 함수 형식
+       1) 함수 표현식
+          var 변수이름 = function 함수이름([매개변수]) {
+            함수본문
+            [return 반환값]
+         }
+       2) 함수 호출
+          함수 이름([인자])
+          변수 이름([인자])
+    */
+   
+   var myFunc2 = function() {
+     window.alert('myFunc2 실행')
+    }
+
+    //myFunc2();     // 호이스팅이 되지 않기 때문에 순서를 위로 올리면 실행되지 않는다.
+  </script>
+
+  <script>
+    
+    /*
+      인자와 매개변수
+      1. 매개변수를 선언할 때 선언 키워드(var)는 사용하지 않는다.
+      2. 매개변수를 선언할 때 매개변수의 이름만 작성한다.
+      3. 매개변수의 디폴트 처리가 가능하다.
+      4. 인자 객체(arguments)를 지원한다.
+      5. 매개변수로 함수를 전달할 수 있다.
+
+
+
+    */
+
+      // 일반 변수 : 참조 관계 없음
+      function myFunc3(number){             // 이 number는 지역변수 개념으로 처리가 됨. 이 메소드 내에서는 number = 11 이더라도 메소드 밖의 number는 여전히 10인 것이 확인됨.
+        number = number + 1;
+      }
+      var number = 10;
+      console.log(number);                  
+      myFunc3(number);
+      console.log(number);                  //모두 10이 출력된다.
+
+      // 배열 : 참조 관계 있음
+      function myFunc4(array){
+        array[0] = 'Z';
+      }
+      var array = ['A', 'B'];
+      console.log(array);               // A B 출력
+      myFunc4(array);
+      console.log(array);               // Z B 출력
+
+      // 객체 : 참조 관계 있음
+      function myFunc5(obj){
+        obj.maker = '벤츠';
+        obj.model = '이클';
+      }
+      var obj = {
+        maker : 'bmw',
+        model : '5시리즈'
+      };
+      console.log(obj);
+      myFunc5(obj);
+      console.log(obj);
+
+      // 매개변수의 디폴트 처리
+      function myFunc6(number){
+        // 매개변수 number로 전달된 인자 값이 없으면 number를 0으로 처리한다.
+        number = number || 0;
+        console.log(number);
+      }
+
+      myFunc6();
+      myFunc6(100);
+
+      // 말 줄임표(..., 전개연산자)  // 앗 사실 이거 새 문법 ㅎ ; ㅋㅋㅋㅋㅋㅋㅋㅋㅋ 어쨌든 없는건 아니니까....^^!
+      function myFunc7(...numbers){                   // numbers는 배열로 처리한다.
+        var total = 0;
+        for(var i = 0; i < numbers.length; i++){
+          total += numbers[i];
+        }
+        console.log(total);
+      }
+
+      myFunc7(1, 2, 3);
+      myFunc7(1, 2, 3, 4);
+
+      // 인자 객체(arguments) : 인자를 저장하는 객체. 배열과 유사하게 동작함
+      function myFunc8() {
+        var total = 0;
+        for(var i = 0; i <arguments.length; i++) {
+          total += arguments[i];
+        }
+        console.log(total/arguments.length);
+      }
+
+      myFunc8(1, 2, 3, 4);
+
+      // 매개변수로 함수 전달하기
+      function myFunc9(func) {
+        func();
+      }
+
+      // 익명 함수 전달
+      myFunc9(function() {
+        console.log('익명함수');
+      });
+
+      // 매개변수로 함수 전달하기 - 2
+      function myFunc10(func, x, y){
+        func(x, y);
+      }
+
+      // 인자가 있는 익명 함수 전달
+      myFunc10(function(x, y) {
+        console.log(x, y);
+      }, 'hello', 'world')
+
+  </script>
+
+  <script>
+    
+    /*
+      반환
+      1. 반환 타입을 작성하지 않는다.
+      2. return 반환값; 을 통해서 반환할 수 있다.
+      3. return; 을 통해서 함수 실행을 종료할 수 있다.
+    */
+
+    // 전달된 인자 중 최대값 반환하기
+     function myMax() {
+      var max = arguments[0]||0;
+      for(var i = 1; i < arguments.length; i++){
+        if(arguments[i]>max){
+           max = arguments[i];
+        }
+      }
+      return max;
+     }
+     console.log(myMax());                          // 디폴트처리를 통해 undefined 대신 0이 나온다.
+     console.log(myMax(5, 8, 100));
+     console.log(myMax(5, 8, 100, 156, 7 , 9));
+  </script>
+
+  <script>
+    /*
+     중첩된 함수
+     1. 함수 안에 함수를 정의할 수 있다.
+     2. 외부 함수는 내부 함수의 매개변수나 변수를 사용할 수 없다.
+     3. 내부 함수는 외부 함수의 매개변수나 변수를 사용할 수 있다.
+
+     클로저
+     내부 함수의 수명(life cycle)이 외부 함수보다 길게 유지되는 JavaScript의 기능
+    */
+
+    function getAddSquare(x, y){
+      function getSquare(a) {
+        return a * a ;
+      }
+      return getSquare(x) + getSquare(y);
+    }
+
+    var result = getAddSquare(3, 4); // (3 * 3) + (4 * 4) 결과를 반환
+    console.log(result);
+
+    // 외부 함수와 내부 함수의 변수 사용
+    function outer(a){
+         // console.log(b);       ----------->> 외부 함수는 내부 함수의 변수를 사용할 수 없다.
+      function inner(b){
+        return a + b;       //내부 함수는 외부 함수의 변수를 사용할 수 있다.
+      }
+      return inner;
+    }
+
+    console.log(outer(10));            // inner 함수가 출력됨( a + b)
+    console.log(outer(10)(20));        // 30이 출력됨
+    //                a   b            // 내부 함수에 인자값 전달하기
+    // 이렇게 외부함수의 호출이 끝나도 내부함수의 데이터가 유지되고 있는 것 -> 자바스크립트가 지원하는 클로저 기능. 때문에 이러한 방식은 다른 언어에서는 아예 불가능하지만, js에서는 가능함.
+  </script>
+
+
+
+
+</body>
+</html>

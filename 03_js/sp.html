@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    // 그냥 한 번 해보기...
+    var arcname = ['롯데타워', '에펠탑', '런던브릿지', '광화문'];
+
+      for(i = 0; i < arcname.length; i++){
+        document.write('<div style="margin: 100px; text-align: center;">');
+        document.write('<div>');
+        document.write('<img src="../../assets/image/architecture' + (i+1) + '.jpg" width="100px">');
+        document.write('</div>');
+        document.write('<div>');
+        document.write(arcname[i]);
+        document.write('</div>');
+        document.write('</div>');
+      }
+
+
+      var bread = {'소금빵': 5000, '초코빵':3000, '식빵':2000};
+      
+      var list = '<div>';
+      
+      list += '<div>소금빵 가격 : ' + bread['소금빵'] + '</div>';
+      list += '<div> 초코빵 가격 : ' + bread['초코빵'] + '</div>';
+      list += '<div> 식빵 가격 : ' + bread['식빵'] + '</div>';
+
+      list += '</div>';
+
+      document.write(list);
+
+     var msg = '<div>';
+      for(var p in bread){
+        msg += p
+      }
+
+      msg += '</div>';
+      document.write(msg);
+
+    
+
+
+
+  </script>
+
+
+</body>
+</html>
