@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // DOM!!! 정말 중요한 부분!!!!!!!!!!!!!!!!!
+
+    /* 
+      DOM
+
+      1. Document Object Model(문서 객체 모델)
+      2. HTML, XML 문서의 프로그래밍 인터페이스이다.
+      3. 프로그래밍 언어를 이용해서 DOM 구조(태그)에 접근한 뒤, 스타일, 내용을 변경할 수 있다.
+      4. 종류
+         1) var 변수 = document.getElementById(아이디)                     -------- 결과가 변수
+         2) var 배열 = document.getElementsByClassName(클래스)             -------- 결과가 배열
+         3) var 배열 = document.getElementsByTagName('태그이름')
+         4) var 변수 = document.querySelector(선택자)
+         5) var 배열 = document.querySelectorAll(선택자)
+    */   
+  </script>
+
+  <script>
+    /*
+      DOM 주의사항  
+      DOM 구조(태그)를 상단에 배치하고, <script> 태그는 하단에 배치한다.
+        +그래서 body 태그 직전에 script 태그가 몰려있는 경우가 많다.
+    */
+  </script>
+
+  <div calss="wrap">
+    <div id="box1" class="primary-box">box1</div>
+    <div id="box2" class="primary-box">box2</div>
+  </div>
+  <script>
+    console.log(document.getElementById('box1'));
+    console.log(document.getElementsByClassName('primary-box'));
+    console.log(document.getElementsByTagName('div'));
+    console.log(document.querySelector('.wrap > #box1'));
+    console.log(document.querySelectorAll('.wrap > .primary-box'));
+  </script>
+
+  <div id="div1"><strong>안녕하세요</strong></div>
+  <script>
+    /* DOM 구조 내부 텍스트 */
+    console.log(document.getElementById('div1').textContent);                        //document.getElementById('div1'). 여기서부터 이제 객체임! div1을 객체로 만들어서 가져온거. 객체가 가진 다양한 메소드들을 사용할 수 있음. 이렇게 이용하는게 핵심
+    document.getElementById('div1').textContent = '안녕하다';                        //strong 태그가 사라진 글자만 출력됨. 이런 디테일을 알아야 해요 ~.~
+    document.getElementById('div1').textContent += '<mark>반갑다</mark>';
+
+  </script>
+  
+  <div id="div2"><strong>안녕하세요</strong></div>
+  <script>
+    /* DOM 구조 내부 요소 */
+    console.log(document.getElementById('div2').innerHTML);                       // 아하 태그도 가지고 있구나. 알수 있읍니다...textContent는 문자만 가지고 왔지만 innerHtml은 태그까지 가지고옴
+    document.getElementById('div2').innerHTML = '<em>안녕하다.</em>';             // 기울임이 반영된다. (textcontent는 tag도 그냥 글자로 출력됨)
+    document.getElementById('div2').innerHTML += '<mark>반갑다</mark>';
+  </script>
+
+  <div id="div3"><img src="../../assets/image/animal10.jpg" width="100px" height ="100px"> </div>
+  <script>
+   /* 이거 엄청엄청 중요 
+
+     태그에 작성된 속성(attribute)                               -- src, type 등등등...속성을 찾아서 바꾼다. input의 type이나 img의 src 등등등
+     1. 가져오기
+       getAttribute(속성)
+     2. 수정하기
+       setAttribute(속성, 값)
+     3. 삭제하기
+       removeAtrribute(속성)
+   */
+    console.log(document.querySelector('#div3 > img').getAttribute('src'));                        //src 속성의 값 출력
+    document.querySelector('#div3 > img').setAttribute('src', '../../assets/image/flower1.jpg');   //src 속성을 변경
+    document.querySelector('#div3 > img').removeAttribute('width');                                //속성의 width 삭제
+
+    console.log(document.querySelector('#div3 > img').getAttribute('alt'));                        //null 출력. 명시되어 있지 않아 가져오지 못함.
+
+    //attribute(태그속성) 와 property(객체속성) 는 다르다! 하지만 아예 상관없는 것도 아니다! 이해를 잘 해야합니다...
+    //객체 일 때 가지고 있는 속성 property, 태그로 존재할 때 가지고 있는 속성 attribute는 다름.
+    //태그를 document로 가지고 와서 객체가 됐을때, property의 함수는 아주 많아짐. 반면 attribute는 함수는 3개.
+    //태그를 객체로 가져왔을 때는 더이상 attribute가 아니라는 걸 알아야 함. 쓰는 함수가 아예 다름
+
+  </script>
+  
+
+
+</body>
+</html>

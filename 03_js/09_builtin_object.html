@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    /*
+      JSON 내장 객체
+      
+      1. JavaScript 객체 -> string 형식의 JSON 데이터
+        1) 서버로 데이터를 보낼 때 활용
+        2) 형식 : JSON.stringify(JS객체)
+      2. string 형식의 JSON 데이터 -> JavaScript 객체
+        1) 서버에서 받은 데이터를 분석할 때 활용
+        2) 형식 : JSON.parse(문자열JSON)
+    */
+
+    // JavaSciprt 객체
+    var car = {
+      maker: 'bmw',
+      model: '5시리즈'
+    };
+
+    // JavaScript 객체 -> string 형식의 JSON 데이터
+    var jsonData = JSON.stringify(car);                 //""도 붙이고 문자열로 바꾸는 등 JSON에 적합한 데이터로 바꿔줌
+    console.log(jsonData, typeof jsonData);            
+
+    // string 형식의 JSON 데이터 -> JavaScript 객체
+    var jsObj = JSON.parse(jsonData);
+    console.log(jsObj, typeof jsObj);                    // 다시 객체 형식으로 바뀜
+  </script>
+
+  <script>
+    
+     /*
+      Array 내장 객체
+      1. forEach() : 반복문
+      2. filter()  : 요소 검사
+      3. map()     : 요소 바꾸기
+      + 람다와 스트림에서 배웠던 그 친구들과 모습뿐만 아니라 기능도 유사함. 비슷비슷해요~
+     */
+
+     //배열
+     var array= ['game', 'travel', 'cooking', 'movie', 'fishing'];
+     
+     //forEach
+     array.forEach(function(element){  //array의 모든 요소가 하나씩 element로 전달된다. ES6 문법으로 바꿀경우 자바 람다랑 식 모양이 똑같음. 
+      console.log(element);
+     });
+     array.forEach(function(element, i){   //자바에서는 향상 for문을 쓸 떄 index를 못써서 아쉬웠지만, js는 index를 뽑는게 가능!
+      console.log(i, element)
+     });
+
+     //filter()
+     array.filter(function(element){
+      return element.length > 5;         // 길이가 5보다 큰 요소만 남긴 배열을 반환함 (-> 이 전체 결과가 또다른 배열이라는 것)
+     }).forEach(function(element){       // 그래서 뒤에 연속해서 forEach를 붙이는게 가능함
+      console.log(element);
+     });
+     
+     array.filter((element) => element.length > 5).forEach((element) => {console.log(element);})
+     //위 식을 ES6 문법으로 작성한 것. 람다식!     
+
+     // map
+     array.map(function(element){
+      return element + '취미';       // 모든 요소 뒤에 '가자'를 추가한 배열을 반환함
+     }).forEach(function(element){
+      console.log(element);
+     });
+  </script>
+
+  <script>
+    
+    /* Math 내장 함수 */
+
+    console.log('절대값', Math.abs(-5));
+
+    console.log('정수 올림값', Math.ceil(5.1));        //6
+    console.log('정수 올림값', Math.ceil(-5.1));       //-5
+
+    console.log('정수 내림값', Math.floor(5.1));       //5
+    console.log('정수 내림값', Math.floor(-5.1));      //-6
+    
+    console.log('정수 반올림값', Math.round(5.5));     //6
+    console.log('정수 반올림값', Math.round(-5.5));    //-5
+
+    console.log('정수 절사값', Math.trunc(5.5));       //5
+    console.log('정수 절사값', Math.trunc(-5.5));      //-5
+    
+    console.log('제곱', Math.pow(2, 3));                //2**3 과 동일 === 8
+    console.log('제곱근', Math.sqrt(25));               //루트 25 === 5
+
+    console.log('난수', Math.random());                 //0 <= 난수 < 1
+    console.log('주사위', parseInt(Math.random() * 6 + 1)); //
+  </script>
+
+  <script>
+
+    /* Date 내장 객체 */
+
+    // 현재 날짜와 시간
+    var now = Date();   //new를 더해서 쓰고 싶다면 new Date().toString()
+    console.log(now, typeof now);
+
+    // 특정 날짜와 시간
+    var someday = new Date(2024, 1, 1, 12, 0, 0);  // 월은 0 ~ 11 사이 값을 가짐
+    console.log(someday, typeof someday);
+
+    // 타임스탬프
+    var timestamp = Date.now();
+    console.log(timestamp, typeof timestamp);
+
+    // 날짜/시간 단위 가져오기
+    var now = new Date();              //object 형식의 now
+    var year = now.getFullYear();
+    var month = now.getMonth();
+    var day = now.getDate();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    var timestamp = now.getTime();
+    console.log(year, month, day, hour, minute, second, timestamp);
+  </script>
+
+  <script>
+    /* String 내장 객체 */
+
+    var str = 'JavaScript';
+
+    // 1. 길이 반환
+    console.log(str.length);  //괄호가 없는 length 속성
+
+    // 2. 특정 인덱스의 문자 반환
+    console.log('첫 번째 글자', str.charAt(0));
+    console.log('마지막 글자', str.charAt(str.length -1 ));
+
+    // 3. 특정 문자의 인덱스 반환
+    console.log('첫 번째 a의 인덱스', str.indexOf('a'));
+    console.log('마지막 a의 인덱스', str.lastIndexOf('a'));
+
+    // 4. 일부 문자열 반환
+    console.log('JAVA', str.substring(0, 4));     // 인덱스 0 <= 문자열 < 인덱스 4 (0123 반환)
+    console.log('Script', str.substring(4));      // 인덱스 4 <= 문자열 끝까지
+    console.log('Java', str.substr(0, 4));        // 인덱스 0부터 4글자(더이상 사용되지않는...목록에 있어서 소개만 해봤어요)
+    console.log('Script', str.substr(4));         // 인덱스 4부터 끝까지. 소개만 ~.~
+    console.log('Java', str.slice(0, 4));         // 인덱스 0 <= 문자열 < 인덱스 4
+    console.log('Script', str.slice(4))           // 인덱스 4 <= 문자열 끝까지
+    console.log('Java', str.slice(-10, -6));      // 인덱스 -10 <= 문자열 < 인덱스 -6 (마지막 인덱스가 -1)
+    console.log('Java', str.slice(-6));           // 인덱스 -6 <= 문자열 끝까지
+    // slice와 substring의 차이점은? slice가 추가기능을 지원함. -index 등. 
+
+    // 5. 특정 패턴을 가지는지 검사 결과를 반환
+    console.log(str.startsWith('Java'));     // 'Java'로 시작하면 true 반환
+    console.log(str.endsWith('Script'));     // 'Script'로 끝나면 true 반환
+    console.log(str.match(/[A-Z]/));         // 정규식 매칭하는 부분이 있으면 캡처된 결과의 첫번째 요소를 배열로 반환하고 없으면 null 반환
+    
+    // 6. 치환 결과를 반환
+    console.log(str.replace('a', '_'));           // 발견된 첫번째 a를 _로 치환함
+    console.log(str.replaceAll(/[A-Z]/g, '_'));   // 정규식을(대문자) 매칭하는 모든 부분을 _로 치환
+
+    // 7. 문자열 연결 결과 반환
+    console.log(str.concat('a', 'bc', 'def'));
+
+
+    // 8. 반복 결과 반환
+    console.log(str.repeat(3));
+
+    // 9. 대소문자 변환 결과 반환
+    console.log('대문자',str.toUpperCase());
+    console.log('소문자',str.toLowerCase());
+
+    // 10. 문자열 앞 뒤에 포함된 불필요한 공백 제거 결과 반환
+    var str='   Java Script   ';
+    console.log('앞뒤제거', str.trim());
+    console.log('앞제거', str.trimStart()); //alias trimLeft() 가능
+    console.log('뒤제거', str.trimEnd()); //alias trimRight() 가능
+
+    // 11. 문자열 앞 뒤에 특정 문자 채운 결과 반환
+    var str='JavaScript';
+    console.log('앞에채우기', str.padStart(15, '*'));    // 전체 15자리 중 부족한 부분은 *로 채우기
+    console.log('뒤에채우기', str.padEnd(15, '*'));
+    
+    // 12. 문자열 객체 다루기
+    var str = new String('JavaScript');
+    console.log(str, typeof str);
+    console.log(str.valueOf(), typeof str.valueOf());   //valueOf를 통해 String으로 변환
+
+    // 13. 문자열을 분리해서 배열 반환
+    var str = 'a,b,c,d,e';
+    var array = str.split(',');
+    console.log(array);
+    var str = array.join(',');     //array의 join을 이용해서 원상복구
+    console.log(str);
+
+    // 활용. 특정 문자 모두 찾아 바꾸기
+    console.log(str.split(',').join(''));    //split(찾을문자).join(바꿀문자)
+
+
+    
+
+
+
+
+
+
+
+
+
+  </script>
+
+  <script>
+
+  </script>
+
+</body>
+</html>
