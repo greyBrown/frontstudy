@@ -84,8 +84,86 @@
     //객체 일 때 가지고 있는 속성 property, 태그로 존재할 때 가지고 있는 속성 attribute는 다름.
     //태그를 document로 가지고 와서 객체가 됐을때, property의 함수는 아주 많아짐. 반면 attribute는 함수는 3개.
     //태그를 객체로 가져왔을 때는 더이상 attribute가 아니라는 걸 알아야 함. 쓰는 함수가 아예 다름
+  </script>
+  
+
+  
+  <div id="div4">
+    <input type="radio" name="gender" value="man" class="blind" id="man" checked="checked">
+    <label for="man">남자</label>
+    <input type="radio" name="gender" value="woman" class="blind" id="woman">
+    <label for="woman">여자</label>
+  </div>
+  
+  <style>
+    #div4 > .blind {
+      display: none;              /*display:none 처리로 인해 보이지는 않지만 lable 처리를 했기때문에 남자를 누르면 남자, 여자를 누르면 여자가 체크됨. 눈으로만 안보임*/
+    }
+    #div4 > label {
+      display: inline-block;
+      width: 100px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;              /*height 와 line-height 크기를 맞추면 세로 정렬 효과를 줄 수 있었죠*/
+      background-color: beige;
+      cursor: pointer;
+    }
+    #div4 > input:checked + label {
+      background-color: bisque;
+    }
+  </style>
+  
+  <script>
+    /*
+      문서 객체 속성(property)
+      1. JavaScript 객체 속성을 의미한다.
+      2. 태그에 작성된 속성(attribute)과 대부분 같지만 다른 것들도 있다. (아래는 대표적으로 바뀌는 것들..class와 checked)
+                                    attribute                  property
+       ----------------------------------------------------------------------------------                              
+        id="man"                  id="man"                    id='man'
+        class="blind"             class="blind"               className: 'blind'
+        checked="checked"         checked="checked"           checked: true
+      3. 객체 속성 접근 방식
+        1) 객체.속성                     --- 보통 이렇게 씀. 아래 방법은 그때 문자열 못쓰는 for문이나, css 변환 등 써야할 이유가 있을때 주로 쓰는 방법
+        2) 객체['속성']
+    */
+
+   //checked= "checked" 속성바꾸기(속성이름 모르곘으면 elements-properties 가서 계속 확인해주기~ )
+
+   //1) 문서 객체 속성(property) 이용하기
+   document.getElementById('man').checked = false;
+   document.getElementById('woman').checked = true;
+
+   //2) 태그 속성(attribute) 이용하기 
+   document.getElementById('man').removeAttribute('checked');       //attribute로 할때는 조금씩 달라진다는 거 유의! attribute는 checked 니까.
+   document.getElementById('woman').setAttribute('checked', 'checked');    //이렇게! attribute는 true false 가 아니라 'checked'. 방식에 따라 코드가 달라진다. 뭐가 답이다! 이게 아니라 attri 냐 prop냐에 따라 갈린다는거...
+
+   
+    //class="blind" 속성 없애기
+   var blind = document.getElementsByClassName('blind');
+   while(blind.length > 0){
+     blind[i].classList.remove('blind');
+   };
+   // 참조변수라는게...삭제할 때 이런저런 문제가 많이 생기기도 하고..생각해볼게 많아요...
+  </script>
+
+  <div id="div5">마무리합니다</div>
+  <script>
+    /*
+      style 속성(poperty)
+      1. CSS 처리하는 속성이다.
+      2. inline 방식의 CSS 처리가 된다. (=우선순위가 높음! -> JavaScript로 sytle 속성을 주면 기존 CSS는 덮어쓰기가 된다.)
+      3. style 속성 작성 방법
+        1) 객체.style.backgroundColor
+        2) 객체.style.['background-color']
+    */
+
+    document.getElementById('div5').style.fontSize = '32px';
+    document.getElementById('div5').style['background-color'] = 'yellow';
+    
 
   </script>
+  
   
 
 
