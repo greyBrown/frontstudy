@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+
+    /*
+      BOM
+      1. Browser Object Model (브라우저 객체 모델)
+      2. 브라우저의 구성 요소를 객체로 처리하는 방식이다.
+      3. 브라우저 객체는 내장 객체로 이미 만들어져 있다.
+      4. 주요 브라우저 객체
+        1) screen : 브라우저 화면 정보
+        2) history : 방문했던 경로를 처리하는 객체
+        3) location : 주소(URL)를 처리하는 객체
+        4) window : 브라우저 창 자체를 의미하는 객체 (모든 JavaScript 객체의 최상위 객체이고, 생략할 수 있다.) ex) window.alert(); -> alert();
+
+        + 오늘은 소개 위주지만 앞으로 빽단 수업 나가게 되면 더더 자주보게 될 친구들입니다 ~.~
+    */
+
+  </script>
+
+
+  <script>
+    document.write('<h1>화면 너비 :' + screen.width + '</h1>');
+    document.write('<h1>가용 너비 :' + screen.availWidth + '</h1>');
+    document.write('<h1>화면 높이: ' + screen.height + '</h1>');
+    document.write('<h1>가용 높이: ' + screen.availHeight + '</h1>');
+  </script>
+  
+  <div>
+    <div><button id="btn1">뒤로</button></div>
+    <div><button id="btn2">앞으로</button></div>
+    <div><button id="btn3">뒤로</button></div>
+    <div><button id="btn4">앞으로</button></div>
+  </div>
+  <script>
+    document.getElementById('btn1').onclick = function() {
+      history.back();
+    }
+    document.getElementById('btn2').onclick = function() {
+      history.forward();
+    }
+    document.getElementById('btn3').addEventListener('clcik',function(){
+      history.go(-1);
+    });
+    document.getElementById('btn4').addEventListener('click', function(){
+      history.go(1);                //go()안의 숫자를 -2, 4 등등으로도 바꿀 수 있음. ex) 회원화면에서 절차단계
+    })
+  </script>
+
+  <div><button id="btn5" onclick="goGoogle()">Google</button></div>
+  <script>
+    //location.href = 'https://www.google.com/';   //이벤트 조건 등을 준게 아니니까 창 열면 바로 구글로 들어가짐 ㅋㅋ          //location은 js의 a태그라고 볼 수 있음! 똑같은 속성 ~.~ 
+
+    /* 버튼 누르면 구글로 가기 
+    document.getElementById('btn5').onclick = function(){
+    location.href = 'https://www.google.com/';
+    }
+    */
+
+    // 인라인방식 이벤트(버튼 만들 때 이렇게 많이 해요. 제일 간단하기도 하고요...).
+    function goGoogle(){                                       //btn, this 없이도 작동 잘되길래 뺌. 없어도 되나봄...
+      location.href = 'https://www.google.com/';
+    }
+    
+  </script>
+
+  <div>
+    <button id="btn-open">열기</button>
+  </div>
+
+  <script>
+    /*
+    var 객체 = window.open([url], [target], [windowfeature]);
+    1. url : 열어 줄 창이 나타낼 URL
+    2. target : 열어 줄 창의 이름
+    3. windowfeature
+      1) 창 크기 : width, height
+      2) 창 위치 : top, bottom, left, right
+    */
+    document.getElementById('btn-open').addEventListener('click', function() {
+      var myWindow = window.open();  //열리는 창이 myWindow 라는 객체가 된다.
+      if(!myWindow){                 //만약 창이 열리지 않았다면{}
+        window.alert('팝업차단을 해제해주세요.');
+      }                  
+    })
+   
+
+  </script>
+
+  <div>
+    <a id="link" href="https://www.gdu.co.kr">링크</a>       
+  </div>
+  <script>
+    var myWindow = null;                                               //예외처리를 위해 document 스코프 밖에서 선언한다.
+    document.getElementById('link').addEventListener('click', function(evt){
+      if(myWindow === null || myWindow.closed){    // 창이 열린적이 없거나 닫혀있다면
+        myWindow = window.open(evt.target.href);                  // 창을 열어라
+      } else {
+        myWindow.focus();
+      }
+      evt.preventDefault();         
+      //현재 창은 이동하지 않도록 조치. a 태그에 target="_blank" 해주는 거랑 같은 효과 -> 이걸 자바스크립트 코드로 구현한것!
+      // js로 구현하는걸 권장해요. 이런저런 추가기능이 가능하기 때문이죠~ 조작할 수 있으니까!
+    })
+    // -> 새창에서만 링크가 열리고 원래창은 변하지 않음.
+
+  </script>
+
+  <div>
+    <a id="link2" href="https://www.gdu.co.kr/" target="myWindowName">링크2</a>
+  </div>
+  <script>
+    var myWindow = null;
+    document.getElementById('link2').addEventListener('click', function(evt){
+      if(myWindow === null || myWindow.closed) {
+        myWindow = window.open(evt.target.href, 'myWindowName') ;
+      } else {
+        myWindow.focus();
+      }
+      evet.preventDefault();
+    })
+  </script>
+
+  <div>
+    <a style="cursor: pointer;" id="link3">링크3</a>
+  </div>
+  <script>
+
+    // 새롭게 뜨는 창의 크기 및 위치 조절. 꽤 중요함!
+    var myWindow = null;
+    document.getElementById('link3').addEventListener( 'click', function(){
+      if(myWindow === null || myWindow.closed){
+        var features = 'width=' + (screen.width/2);        // 창이 가운데에 오게하려는 처리. 가운데 1/2을 차지한다면 시작부분은 창 전체에서 1/4 부분~
+        features += ', height=' + (screen.height/2);
+        features += ',top=' + (screen.height/4);
+        features += ', left=' + (screen.width/4);
+        myWindow = window.open('https://www.gdu.co.kr/', '', features);
+      } else {
+        myWindow.focus();
+      }
+    })
+  </script>
+
+
+
+  <div>
+      <input type="text" id="a">
+      <button id="btn" type="button">전송</button>
+      <div>자식 창에서 전송한 값은 <span id="c"></span>입니다.</div>
+  </div>
+  <script>
+    
+    // 전역 객체 (모든 함수와 영역에서 접근할 수 있다.)
+    var popupWindow = null;
+    
+    // 창 열기 함수 선언
+    function openWindow() {
+      if(popupWindow === null || popupWindow.closed){
+        popupWindow = window.open('12_popup.html');   
+      } else{
+        popupWindow.focus();
+      }
+    }
+
+    // 데이터 보내기 함수 선언
+    function sendData() {
+      // 12_popup.html 문서 본문을 모두 읽은 뒤에 처리하는 이벤트 : load 이벤트    ( 이 처리를 해주지 않으면 script가 아래에 와야 한다는 구조에 어긋나게 돼서 실행이 안됨)
+      popupWindow.onload = function() {
+        popupWindow.document.getElementById('b').textContent = window.document.getElementById('a').value;  //'a'라는 아이디를 가진 팝업창에 입력된 데이터를 'b'라고 부르는 곳으로 텍스트로 데이터를 보내겠다.
+      }
+    }
+
+    
+    
+    // 클릭 이벤트
+    document.getElementById('btn').onclick = function(){
+      openWindow();
+      sendData();
+    }
+    //load 이벤트 이해하기...데이터 보내는 거는 기본적으로 알아둬서 당연히 나쁠거 없겠죠! 좀 어렵긴 하지만 잘 보면 그냥 데이터보내는 구조임!! 자바...잊지마....
+    //알아둬서 당근 나쁠거 없음. 모르면 관련기능 안쓰게 되고....!
+  </script>
+
+
+
+</body>
+</html>
