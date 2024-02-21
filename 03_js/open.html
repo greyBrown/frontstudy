@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <style>
+    table { 
+      border-collapse: collapse;
+      text-align: center;
+    }
+  
+    table > thead {
+      background-color: darkcyan;
+    }
+    
+    </style>
+  
+  <div id="customer">
+  <table border="1">
+  <thead id="thead">
+    <tr>
+      <td>회원번호</td>
+      <td>고객명</td>
+      <td>아이디</td>
+      <td>이메일</td>
+      <td>주소</td>
+      <td>연락처</td>
+      <td>웹사이트</td>
+      <td>회사명</td>
+      <td>세부카테고리</td>
+    </tr>
+  </thead>
+  <tbody id="contents"></tbody>
+  </table>
+  </div>
+  <script>
+    
+    
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+      xhr.send();
+      xhr.addEventListener('readystatechange', function(){
+        if(xhr.readyState !== XMLHttpRequest.DONE)
+        return;
+        if(xhr.status !== 200)
+        return;
+      var resData = JSON.parse(xhr.responseText);
+      var result = '';
+        result += '<tr><td>'  + resData.id + '</td><td>'
+               + resData.name + '</td><td>' + resData.username + '</td><td>'
+               + resData.email + '</td><td>' 
+               + resData.address.street + resData.address.suite
+               + resData.address.city + resData.address.zipcode 
+               + '</td><td>'
+               + resData.phone
+               + '</td><td>'
+               + resData.website
+               + '</td><td>'
+               + resData.company.name
+               + '</td><td>'
+               + resData.bs  
+               + '</td></tr>'
+      }
+   
+    
+    
+
+  </script>
+
+
+
+
+
+</body>
+</html>

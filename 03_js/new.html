@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <style>
+  table { 
+    border-collapse: collapse;
+    text-align: center;
+  }
+
+  table > thead {
+    background-color: darkcyan;
+  }
+  table > tbody > tr:hover{
+    background-color: grey;
+  }
+  
+  </style>
+
+<button type="button" id="btn">고객리스트 불러오기</button>
+<div id="customer">
+<table border="1">
+<thead id="thead">
+  <tr>
+    <td>회원번호</td>
+    <td>고객명</td>
+    <td>아이디</td>
+    <td>이메일</td>
+    <td>거주도시</td>
+    <td>연락처</td>
+    <td>세부사항</td>
+  </tr>
+</thead>
+<tbody id="contents"></tbody>
+</table>
+</div>
+
+  <script>
+    
+    /* 기본 구상 : 고객 목록 명단. 
+    https://jsonplaceholder.typicode.com/users 
+
+     추가 구상 : 고객정보가 있는 행을 클릭하면 해당 고객의 모든 정보가 팝업으로 노출됨.
+    */
+
+    
+
+    function customerlist(){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+      xhr.send();
+      xhr.addEventListener('readystatechange', function(){
+        if(xhr.readyState !== XMLHttpRequest.DONE)
+        return;
+        if(xhr.status !== 200)
+        return;
+      var resData = JSON.parse(xhr.responseText);
+      var result = '';
+      console.log(resData);
+      for(var key in resData){
+        var element = resData[key];
+        result += '<tr><td>' + element.id + '</td><td>'
+               + element.name + '</td><td>'
+               + element.username + '</td><td>' + element.email + '</td><td>'
+               + element.address.city + '</td><td>' + element.phone + '</td>'
+               + '<td><button type="button" id="btn'+ element.id +'">보기</button></td></tr>';
+      }
+      document.getElementById('contents').innerHTML = result;
+      for(var key in resData){
+        var element = resData[key];
+        var btnId =  'btn' + element.id;
+        document.getElementById(btnId).addEventListener('click', openWindow);
+      }
+      })
+    }
+    
+    document.getElementById('btn').addEventListener('click', customerlist);
+    
+    var popupWindow = null;
+     function openWindow() {
+     if(popupWindow === null || popupWindow.closed){
+       popupWindow = window.open('open.html');   
+     } else{
+       popupWindow.focus();
+     }
+   }
+
+   function sendData() {
+      popupWindow.onload = function() {
+        popupWindow.document.getElementById('b').textContent = window.document.getElementsByTagName('td')[0].value;
+      }
+    }
+   
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
