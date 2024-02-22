@@ -18,7 +18,7 @@
     }
     
     </style>
-  
+
   <div id="customer">
   <table border="1">
   <thead id="thead">
@@ -37,10 +37,13 @@
   <tbody id="contents"></tbody>
   </table>
   </div>
+
+  <span id="pass"></span>
   <script>
     
-    
-      var xhr = new XMLHttpRequest();
+    var pk = document.getElementById('pass').textContent;
+
+     /* var xhr = new XMLHttpRequest();
       xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
       xhr.send();
       xhr.addEventListener('readystatechange', function(){
@@ -50,23 +53,27 @@
         return;
       var resData = JSON.parse(xhr.responseText);
       var result = '';
-        result += '<tr><td>'  + resData.id + '</td><td>'
-               + resData.name + '</td><td>' + resData.username + '</td><td>'
-               + resData.email + '</td><td>' 
-               + resData.address.street + resData.address.suite
-               + resData.address.city + resData.address.zipcode 
+        result += '<tr><td>'  + resData[pk].id + '</td><td>'
+               + resData[pk].name + '</td><td>' + resData[pk].username + '</td><td>'
+               + resData[pk].email + '</td><td>' 
+               + resData[pk].address.street + resData[pk].address.suite
+               + resData[pk].address.city + resData[pk].address.zipcode 
                + '</td><td>'
-               + resData.phone
+               + resData[pk].phone
                + '</td><td>'
-               + resData.website
+               + resData[pk].website
                + '</td><td>'
-               + resData.company.name
+               + resData[pk].company.name
                + '</td><td>'
-               + resData.bs  
-               + '</td></tr>'
-      }
+               + resData[pk].bs  
+               + '</td></tr>';
+
+               document.getElementById('contents').innerHTML = result;
+      });
    
-    
+  */ 
+  
+
     
 
   </script>

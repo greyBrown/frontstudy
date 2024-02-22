@@ -48,7 +48,26 @@
      추가 구상 : 고객정보가 있는 행을 클릭하면 해당 고객의 모든 정보가 팝업으로 노출됨.
     */
 
-    
+    var popupWindow = null;
+    function openWindow() {
+    if(popupWindow === null || popupWindow.closed){
+        popupWindow = window.open('open.html');   
+    } else{
+        popupWindow.focus();  }
+      }
+      
+      function sendData(id) {
+        popupWindow.onload = function() {
+          popupWindow.document.getElementById('pass').textContent = document.getElementById(this.btnId);
+        }
+      }
+      
+
+
+
+   document.getElementById('btn').addEventListener('click', customerlist);
+
+    var numArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     function customerlist(){
       var xhr = new XMLHttpRequest();
@@ -71,30 +90,14 @@
                + '<td><button type="button" id="btn'+ element.id +'">보기</button></td></tr>';
       }
       document.getElementById('contents').innerHTML = result;
-      for(var key in resData){
-        var element = resData[key];
-        var btnId =  'btn' + element.id;
         document.getElementById(btnId).addEventListener('click', openWindow);
-      }
-      })
+     })
     }
-    
-    document.getElementById('btn').addEventListener('click', customerlist);
-    
-    var popupWindow = null;
-     function openWindow() {
-     if(popupWindow === null || popupWindow.closed){
-       popupWindow = window.open('open.html');   
-     } else{
-       popupWindow.focus();
-     }
-   }
 
-   function sendData() {
-      popupWindow.onload = function() {
-        popupWindow.document.getElementById('b').textContent = window.document.getElementsByTagName('td')[0].value;
-      }
-    }
+
+
+
+    console.log();
    
   </script>
 
