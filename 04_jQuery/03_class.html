@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../assets/lib/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  
+  <div id="div1">hello world</div>
+  <style>
+    .blind {
+      display: none;
+    }
+    .visible {
+      display: block;
+    }
+  </style>
+
+  <script>
+    var div1 = $('#div1');
+
+    // class 추가
+    div1.addClass('blind');
+    
+    // class 삭제
+    div1.removeClass('blind');
+
+    // class 반전
+    div1.toggleClass('blind');     //안보임           <- toggle 상태 반전(blind->visible, visible->blind)
+    div1.toggleClass('blind');     //보임
+    div1.toggleClass('blind');     //안보임
+
+    // class 확인
+    if(div1.hasClass('blind'))    //truefalse 반환
+      alert('blind 되었다');
+
+
+  </script>
+
+
+
+</body>
+</html>
