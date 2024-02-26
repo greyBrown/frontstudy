@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../assets/lib/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <style>
+    #img-container{
+      width: 384px;
+      height: 256px;
+      background-image: url('../../assets/image/animal10.jpg');
+      background-size: 384px;
+
+    }
+  </style>
+
+  <div>
+    <button type="button" id="btn-open">OPEN</button>
+    <button type="button" id="btn-close">CLOSE</button>
+    <button type="button" id="btn-toggle">TOGGLE</button>
+  </div>
+  <div id="img-container"></div>
+
+  <script>
+
+ $('#btn-close').on('click', function(evt){
+    $('#img-container').hide();
+   })
+
+  /* hide() : 숨기기(display:none;  ) <-> show()
+  $('#btn-close').on('click', function(evt){
+    $('#img-container').hide();
+   })
+  */
+
+  /* fadeOut() : 서서히 숨기기(opacity: 0; + display: none;) <-> fadeIn()
+     3초 동안 일정하게 닫힌다. 3초후 function(){}이 실행된다.
+  $('#btn-close').on('click', function(evt){
+    $('#img-container').fadeOut(3000, 'linear', function(){
+      alert('닫혔다.');
+    });
+  })
+  */
+
+  /* slideUp() : 슬라이드 닫기 (overflow: hidden; + height: 0; + display: none;) <-> slideDown
+  $('#btn-close').on('click', function(evt){
+    $('#img-container').slideUp(3000, 'swing', function(){
+      alert('닫혔다.');
+    })
+  })
+  */
+
+  /* fadeTo() : 서서히 숨기기(opacity: 사용자지정;)
+     3초 동안 투명도를 0.5로 조정한다.
+  $('#btn-close').on('click', function(evt){
+    $('#img-container').fadeTo(3000, 0.5);
+    });
+  */
+
+
+  </script>
+  <script>
+    //open 버튼 확인...잘 됩니당.
+    $('#btn-open').on('click', function(evt){
+      $('#img-container').show();
+     // $('#img-container').fadeIn();
+     // $('#img-container').slideDown();
+   })
+
+
+  </script>
+
+  <script>
+    /* toggle(): show() <-> hide()
+    $('#btn-toggle').on('click', function(evt){
+      $('#img-container').toggle();
+    })
+    */
+
+    /* fadeToggle() : fadein() <-> fadeOut()
+    $('#btn-toggle').on('click', function(evt){
+      $('#img-container').fadeToggle(); 
+    })
+    */
+
+
+    /* slideToggle() : slideDown() <-> SlideUp()
+    $('#btn-toggle').on('click', function(evt){
+      $('#img-container').slideToggle(); 
+    })
+    */
+
+    //자잘한거 git 이랑 다를 수 있음 dev-git 참조
+  </script>
+    
+    
+
+
+
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../assets/lib/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <div>
+    <button type="button" id="btn1">버튼1</button>
+  </div>
+
+  <script>
+
+    // get 방식의 ajax 처리
+    $('#btn1').on('click', function(evt){
+      $.get('https://thetestrequest.com/authors.xml', function(resData){             //객체만들떄랑 똑같이 jQeury. 이 아니라 $. 을 씁니다 ~.~
+        console.log('success', resData);
+      })
+      .done(function(resData){    //이렇게 'done' 영역에서 resData를 처리하는 것도 가능
+        console.log('done', resData);   //성공시(done) 수행할것(function). 예전에는 done이 success fail이 error, always는 complete이었던...시절이 있었음. 3.0 이후로 바뀜
+
+      })
+      .fail(function(){
+        console.log('fail');
+      })
+      .always(function(){
+        console.log('always');
+      })                       
+    })
+    //$.get()안에서 'JSON', 'XML'은 비공식적으로 생략가능...$.getJSON()공식적으로 생략가능
+    // XML은 받아올 때 DOM 처리를 직접 해줬어야 했는데 jQuery는 알아서 처리를 해준다. documnet로 넘어와서 파싱할 필요가 없음.
+  
+  </script>
+  
+  <div>
+    <button type="button" id="btn2">버튼2</button>
+  </div>
+
+  <script>
+
+    //get방식의 JSON 처리(비슷비슷)
+$('#btn2').on('click', function(evt){
+      $.getJSON('https://jsonplaceholder.typicode.com/photos/1', function(resData){
+        console.log('success', resData);
+      })
+      .done(function(resData){
+        console.log('done', resData);
+      })
+      .fail(function(){
+        console.log('fail');
+      })
+      .always(function(){
+        console.log('always');
+      })
+    })
+  // post방식도...get과 방식 똑같아서 생략합니다. 데이터 보내는 것도 수업을 안해서 지금은 마땅치가 않음
+  </script>
+
+  <div>
+    <button type="button" id="btn3">버튼3</button>
+  </div>
+
+  <script>
+
+    $('#btn3').on('click', function(evt){
+      $.ajax({                                 //설정을 하나의 객체로 만들어서 전달
+        /* 요청 */
+        type: 'GET',                                     /*요청메소드                                          //에러결과 확인을 위해 'GET' -> 'POST' 변경  
+                                                            GET(디폴트)
+                                                            POST        
+                                                            PUT
+                                                            DELETE */
+        url: 'https://thetestrequest.com/authors/1.xml',
+        async: true,                                    /* 비동기/동기 작업
+                                                           true : 비동기작업(디폴트)
+                                                          false : 동기작업 */ 
+        /*응답*/
+        dataType: 'xml',                              /* 응답 데이터 타입
+                                                         xml
+                                                         json
+                                                         script : JavaScript 코드를 문자열로 받아옴
+                                                         html : HTML 태그를 문자열로 받아옴
+                                                         text : 일반 문자열을 받아옴 */
+        
+        
+          seccess: function(resData){                  /* 응답데이터를 받아오는 함수
+                                                          function(Anything data, [String textStatus], [jqXHR jqXHR]){
+                                                          }); */
+          console.log('success', resData);
+        }, 
+        error: function(jqXHR){               /*jqXHR*/ //<- XMLHttpRequest의 jQuery버전. 더 편리하고 확장적인 기능.
+          console.log('error', jqXHR.status, jqXHR.statusText); 
+                                                                     /* 요청 실패 시 동작하는 함수
+                                                                     function(jqXHR jqXHR, [String textStatus], [String errorThrown]){
+                                                                     }) */
+        }
+      })
+      .done(function(resData){
+        console.log('done', resData);
+      })
+      .fail(function(jqXHR){                                             //POST 방식(지금 못쓰는거)으로 변경시 error 와 fail의 똑같은 404 에러. -> error fail 같은거니까 한군데에서만 작업하면 됨
+        console.log('fail', jqXHR.status, jqXHR.statusText);                                            
+    }).always(function(){
+        console.log('always');
+    })
+  })   
+
+  //문자열 넣어가면서 에러확인 함 해봐요~fail(function(jqXHR, textStatus){console.log('fail', textStatus); 요런식으로 문자열이 출력됨. 매개변수에 문자열넣어놓고 왜안되나 했네 js도 답답할듯..^^ ㅠ
+
+  </script>
+
+  <div>
+    <button type="button" id="btn4">버튼4</button>
+  </div>
+
+  <script>
+    //JSON 요청해서 응답받은 JSON data의 id 숫자로 XML 데이터 요청.
+
+    // 권장하는 Promise를 활용한 버전 1. 
+    //  -> resolve를 사용해 호출하면 비동기작업이 마치 동기작업처럼 순서를 준수해서 작업을 마무리해준다.
+
+    
+   $('#btn4').on('click', function(evt){
+
+   new Promise(function(resolve, reject){
+   $.ajax({
+     type: 'GET',
+     url: 'https://jsonplaceholder.typicode.com/photos/2',
+     dataType: 'json',
+     success: function(resData){
+       resolve(resData);
+     },
+     error: function(jqXHR){
+       reject(jqXHR);
+     }
+   })
+ })
+   .then(function(resData){
+     $.ajax({
+       type: 'GET',
+       url: 'https://thetestrequest.com/authors/' + resData.id + '.xml',
+       dataType: 'xml',
+       success: function(resData){
+         console.log(resData);
+       }
+     })
+   }, function(jqXHR){
+     console.log(jqXHR.status);
+   });
+
+  /* 위와 각주(catch 버전) 둘 중 하나 스타일대로 쓰지만...아마 난 위로 쓰게 되지 않을까 ㅎ
+  new Promise(function(resolve, reject){ 
+  
+  })
+    .then(function(resData){ 
+
+    })
+    .catch(function(jqXHR){
+    
+    });
+  */
+ 
+ });
+
+      // 권장하지 않는 중첩된 ajax 버전
+      $.ajax({
+        type: 'GET',
+        url: 'https://jsonplaceholder.typicode.com/photos/5',
+        dataType: 'json',
+        success: function(resData){
+          $.ajax({
+            type:'GET',
+            url: 'https://thetestrequest.com/authors/'+resData.id +'.xml',
+            dataType: 'xml',
+            success: function(resData2){
+              console.log(resData2);
+            }
+          })
+        },
+        error: function(jqXHR){
+        }
+      })
+
+      // 비동기 처리에 순서가 필요하는게 btn4의 포인트... 비동기처리에 '순서'가 필요한 상황! 먼저꺼를 받아와야 그거로 다음 데이터를 받아옴.
+      // 좀더 현실적으로 보자면 ex) 인증번호 등...데이터를 받아와서 그 데이터를 다시 보냄.
+      // 순서를 보증하면서 코드의 가독성을 높여주는게 js에서는 promise 였음. 이걸..ajax에 붙여봅니다. 하지만 위처럼 ajax 안에 ajax가 들어가는건 권장하지 않음.(콜백지옥을 심화시킨다.)
+
+      
+
+      
+    
+
+  </script>
+
+
+  <div>
+    <button type="button" id="btn5">버튼5</button>
+  </div>
+  <script>
+    //위에서 한 작업화 function화. 최종적으로 이걸 사용하게 됨.
+
+    function myFunc1(){
+      return new Promise(function(resolve, reject){
+        $.ajax({
+          type: 'GET',
+          url: 'https://jsonplaceholder.typicode.com/photos/1',
+          dataType: 'json',
+          success: function(response1){
+            resolve(response1);
+          }
+        })
+      });
+    }
+    function myFunc2(response1){
+      return new Promise(function(resolve, reject){
+        $.ajax({
+          type: 'GET',
+          url: 'https://thetestrequest.com/authors/' + (response1.id + 1) + '.xml',
+          dataType: 'xml',
+          success: function(response2){
+            resolve(response2);
+          }
+        })
+      });
+    }
+    function myFunc3(response2){
+      return new Promise(function(resolve, reject){
+        $.ajax({
+          type: 'GET',
+          url: 'https://jsonplaceholder.typicode.com/photos/' + (Number($(response2).find('id').text()) + 1),
+          dataType: 'json',
+          success: function(response3){
+            resolve(response3);
+          }
+        })
+      });
+    }
+
+    function myJob(){
+      myFunc1()
+      .then(function(response1){
+        return myFunc2(response1);
+      })
+      .then(function(response2){
+        return myFunc3(response2);
+      })
+      .then(function(response3){
+        console.log(response3);
+      });
+    }
+
+    $('#btn5').on('click', myJob);
+  </script>
+
+
+</body>
+</html>
